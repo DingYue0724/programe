@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>爱旅游-首页</title>
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+	<!-- 导航部分 -->
+	<div class="navtxt">
+		<div class="navtxt-tool">
+			<a href="javascript:void(0);">客户端</a> |
+			<a href="javascript:void(0);">手机版</a> |
+			<a href="javascript:void(0);">收集工具</a>
+		</div>
+		<div class="navtxt-user">
+			<a href="register.html">注册</a>
+			<a class="userLoginApi" href="login.html">登录</a>
+			<i class="fa fa-envelope"></i>
+			<i class="fa fa-bell" style="margin-right: 200px"></i>
+			<img src="images/upload/photos/admin.jpg" alt="">
+			<span class="userName">吾爱旅行</span>
+			<i id="cPlay" class="fa fa-music"></i>
+			<audio loop id="audioPlay" style="float: left; width: 100px; height: 35px" src="iloveyou.mp3"></audio>
+		</div>
+	</div>
+	<nav>
+		<img src="images/logo.png" alt="">
+		<ul class="nav-list">
+			<li>
+				<a href="javascript:void(0);">广播</a> |
+			</li>
+			<li>
+				<a href="index.html">发现</a>
+				<a href="article.html">文章</a>
+				<a href="article_list.html">心情 </a> |
+			</li>
+			<li>
+				<a href="imgs.html">专辑</a>
+				<a href="article_list_2.html">生活</a>
+				<a href="javascript:void(0);">时尚</a>
+				<a href="javascript:void(0);">兴趣</a> |
+			</li>
+			<li>
+				<a href="javascript:void(0);">Wiki</a> |
+			</li>
+			<li>
+				<a href="javascript:void(0);">小组</a>
+			</li>
+		</ul>
+		<div class="nav-search">
+			<input class="searchMsg" type="text" placeholder="请输入要查询的内容">
+			<i class="fa fa-search"></i>
+			<ul class="pulldown">
+				
+			</ul>
+		</div>
+	</nav>
+	<!-- 海报部分 -->
+	<div class="wrapper-main">
+		<div class="banner-main">
+			<ul class="pinterest">
+				<li><!-- 
+					<div>
+						 <img src="images/upload/new1.jpg" alt="">
+						<p>
+							青春，一场盛世的繁华、愿不倾域，不倾国，只倾我所有。只为过简单安稳的生活单纯不平凡。一支素笔，一杯花茶，一段时光，浅笑又青春，一场盛世的繁华、愿不倾域，不倾国，只倾我所有。只为过简单安稳的生活，单纯不平凡。
+						</p> 
+					</div> -->
+				</li>
+				<li>
+				</li>			
+				<li>
+				</li>
+				<li>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- 返回头部 -->
+	<div class="fixDiv">
+		<div class="toTop">
+			<p class="fa fa-angle-up"></p>
+			<p>返回<br>顶部</p>
+		</div>
+		<div class="suggest">
+			<p class="fa fa-comment-o"></p>
+			<p>意见<br>反馈</p>
+		</div>
+	</div>
+
+	<footer class="clear">
+		<p>版权所有 &copy; 爱旅游</p>
+	</footer>
+	
+	<script src="js/jquery.min.js"></script>
+	<script src="js/index.js"></script>
+	<script src="js/func.js"></script>
+	<script>
+		function dy (data) {
+			var html = '';
+			if (data.s.length) {
+				$('.pulldown').stop().slideDown();
+				for (var i = 0; i < data.s.length; i++) {
+					html += '<li><a href="http://www.baidu.com/s?wd=' + data.s[i] + '">' + data.s[i] + '</a></li>';
+				}
+				$('.pulldown').html(html);
+			}
+		}
+	</script>
+	<script>
+		$(function () {
+			$('.searchMsg').keyup(function () {
+				if ($(this).val() != '') {
+					var oScript = $('<script><\/script>');
+					oScript.attr('src', 'http://suggestion.baidu.com/su?wd=' + $(this).val() + '&cb=dy');
+					$('body').append(oScript);
+				} else {
+					$('.pulldown').stop().slideUp();
+				}
+			});
+		});
+	</script>
+</body>
+</html>

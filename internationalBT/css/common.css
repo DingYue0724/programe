@@ -1,0 +1,145 @@
+body,h1,h2,h3,p,ul,ol,form,fieldset,figure {
+	margin: 0;
+	padding: 0;
+}
+div,figure,img,input,button{
+	box-sizing: border-box;
+}
+body {
+	background-color: #f5f5f5;
+	font-family:'微软雅黑';
+}
+img {
+	display: block;
+	max-width: 100%;
+}
+ul,ol {
+	list-style:none;
+}
+a {
+	text-decoration: none;
+}
+.none {
+	display: none;
+}
+
+.sm-visible{
+	display: none;
+}
+
+/*清除浮动*/
+.clearfix:after {
+	content:".";  
+	height:0;  
+	visibility:hidden;  
+	display:block;  
+	clear:both;  
+}
+
+/*页脚*/
+#footer {
+	background-color: #aaa;
+	clear:both;
+	position: relative;
+	top: 20px;
+}
+#footer .top {
+	max-width: 1263px;
+	height: 280px;
+	margin: 0 auto;
+	text-align: center;
+}
+#footer .block {
+	width: 33.33%;
+	height: 320px;
+	display: inline-block;
+	text-align: left;
+	vertical-align: top;
+	display: block;
+	float: left;
+}
+#footer h2{
+	color:white;
+	font-weight: normal;
+	padding: 20px 0 0 20px;
+	font-size: 22px;
+}
+#footer hr {
+	width: 90%;
+	border: 1px dashed white;
+}
+#footer ul{
+	font-size: 18px;
+	text-indent: 20px;
+	line-height: 2;
+	font-size: 16px;
+	margin-top: 10px;
+}
+#footer ul li {
+	color: #666;
+}
+#footer ul li:hover{
+	cursor: pointer;
+	color: #efefef;
+}
+
+#footer .version {
+	text-align: center;
+	padding: 10px 0;
+}
+#footer .bottom {
+	padding: 15px 0;
+	text-align: center;
+	color:white;
+	background-color: #000;
+}
+
+
+/*头部*/
+/*导航*/
+#header {
+	width: 100%;
+	height: 70px;
+	background-color: #f78082;
+	box-shadow: 0 0px 20px rgba(192, 138, 164, 1);
+	position: fixed;
+	top: 0;
+	z-index: 9999;
+}
+#header .center {
+	max-width: 1260px;
+	height: 70px;
+	margin: 0 auto;
+}
+#header .logo {
+	width: 30%;
+	height: 70px;
+	background: url(../img/logo1.png) center center no-repeat;
+	float: left;
+	border-radius: 50%;
+}
+#header .link{
+	width: 55%;
+	height: 70px;
+	line-height: 70px;
+	color: #eee;
+	float: right;
+}
+#header .link li {
+	width: 20%;
+	text-align: center;
+	float: left;
+}
+#header .link a {
+	border-right:1px solid #f78082;
+	color: #fff;
+	font-size: 18px;
+	font-weight: 400;
+	display: block;
+}
+#header .link a:hover, 
+#header .active a {
+	background-color: rgba(255, 255, 255, 0.9);
+	color: #f78082;
+}
+
