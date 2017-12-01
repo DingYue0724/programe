@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>爱旅游-文章</title>
+	<link rel="stylesheet" href="css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/index.css">
+	<link rel="stylesheet" href="css/article.css">
+</head>
+<body>
+	<!-- 导航部分 -->
+	<div class="navtxt">
+		<div class="navtxt-tool">
+			<a href="javascript:void(0);">客户端</a> |
+			<a href="javascript:void(0);">手机版</a> |
+			<a href="javascript:void(0);">收集工具</a>
+		</div>
+		<div class="navtxt-user">
+			<a href="register.html">注册</a>
+			<a class="userLoginApi" href="login.html">登录</a>
+			<i class="fa fa-envelope"></i>
+			<i class="fa fa-bell" style="margin-right: 200px"></i>
+			<img src="images/upload/photos/admin.jpg" alt="">
+			<span class="userName">吾爱旅行</span>
+			<i id="cPlay" class="fa fa-music"></i>
+			<audio loop id="audioPlay" style="float: left; width: 100px; height: 35px" src="iloveyou.mp3"></audio>
+		</div>
+	</div>
+	<nav>
+		<img src="images/logo.png" alt="">
+		<ul class="nav-list">
+			<li>
+				<a href="javascript:void(0);">广播</a> |
+			</li>
+			<li>
+				<a href="index.html">发现</a>
+				<a href="article.html">文章</a>
+				<a href="article_list.html">心情</a> |
+			</li>
+			<li>
+				<a href="imgs.html">专辑</a>
+				<a href="article_list.html">生活</a>
+				<a href="javascript:void(0);">时尚</a>
+				<a href="javascript:void(0);">兴趣</a> |
+			</li>
+			<li>
+				<a href="javascript:void(0);">Wiki</a> |
+			</li>
+			<li>
+				<a href="javascript:void(0);">小组</a>
+			</li>
+		</ul>
+		<div class="nav-search">
+			<input class="searchMsg" type="text" placeholder="请输入要查询的内容">
+			<i class="fa fa-search"></i>
+			<ul class="pulldown">
+				
+			</ul>
+		</div>
+	</nav>
+	<!-- 中间部分 -->
+	<div class="wrapper">
+		<!-- 海报 -->
+		<div class="banner">
+			<img src="images/upload/banner2.png" alt="">
+		</div>
+		<!-- 页面主体部分 -->
+		<div class="page-main">
+			<!-- 左侧导航栏 -->
+			<div class="inner-left edit">
+				<div class="section-edit">
+					<div class="section-edit-title">
+						<h2>带着忧伤去旅行</h2>
+						<p>
+							<a href="javascript:void(0);"></a>
+							<a href="javascript:void(0);"></a>
+							<a href="javascript:void(0);"></a>
+						</p>
+					</div>
+					<p>
+						浏览：3471&nbsp;&nbsp;&nbsp;&nbsp;发布日期：2017-11-01				
+					</p>
+					<article class="clear">
+						<img style="width: 100%" src="images/upload/plsw.png" alt="">
+						<img style="width: 100%" src="images/upload/plsw2.png" alt="">
+						<img style="width: 100%" src="images/upload/plsw3.png" alt="">
+					</article>
+				</div>
+			</div>
+			<div class="inner-right">
+				<div class="sectionR clear">
+					<p><a href="javascript:void(0);">收藏</a></p>
+					<p><a href="javascript:void(0);">喜欢</a></p>
+					<p><a href="javascript:void(0);">评论</a></p>
+				</div>
+				<div class="sectionR clear">
+					<img class="plote" src="images/upload/photos/use1.jpg" alt="">
+					<div class="personalMsg">
+						<span class="userName article-userName">吾爱旅行</span>
+						<p>积分：4312&nbsp;&nbsp;&nbsp;等级：LV4</p>
+					</div>
+				</div>
+				<!-- 热门标签 -->
+				<div class="sectionR clear">
+					<a href="javascript:void(0);"></a>
+					<a href="javascript:void(0);"></a>
+					<a href="javascript:void(0);"></a>
+					<a href="javascript:void(0);"></a>
+					<a href="javascript:void(0);"></a>
+				</div>
+				<div class="sectionR clear">
+					<div class="sectionR-title">
+						<h5>热门推荐</h5>
+					</div>
+					<ol>
+						<li><a href="javascript:void(0);">那些年，我们一起旅行过的地方</a></li>
+						<li><a href="javascript:void(0);">那些年，我们一起旅行过的地方</a></li>
+						<li><a href="javascript:void(0);">那些年，我们一起旅行过的地方</a></li>
+						<li><a href="javascript:void(0);">那些年，我们一起旅行过的地方</a></li>
+						<li><a href="javascript:void(0);">那些年，我们一起旅行过的地方</a></li>
+						<li><a href="javascript:void(0);">那些年，我们一起旅行过的地方</a></li>
+						<li><a href="javascript:void(0);">那些年，我们一起旅行过的地方</a></li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer class="clear">
+		<p>版权所有 &copy; 爱旅游</p>
+	</footer>
+	
+	<script src="js/jquery.min.js"></script>
+	<script src="js/index.js"></script>
+	<script>
+		function dy (data) {
+			var html = '';
+			if (data.s.length) {
+				$('.pulldown').stop().slideDown();
+				for (var i = 0; i < data.s.length; i++) {
+					html += '<li><a href="http://www.baidu.com/s?wd=' + data.s[i] + '">' + data.s[i] + '</a></li>';
+				}
+				$('.pulldown').html(html);
+			}
+		}
+	</script>
+	<script>
+		$('.searchMsg').keyup(function () {
+			if ($(this).val() != '') {
+				var oScript = $('<script><\/script>');
+				oScript.attr('src', 'http://suggestion.baidu.com/su?wd=' + $(this).val() + '&cb=dy');
+				$('body').append(oScript);
+			} else {
+				$('.pulldown').stop().slideUp();
+			}
+		});
+	</script>
+</body>
+</html>
