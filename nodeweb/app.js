@@ -13,6 +13,7 @@ var MongoClient = require('mongodb').MongoClient;
 var mongoose = require('mongoose');
 // 加载 body-parser 模块，用来处理 post 提交过来的数据
 var bodyParser = require('body-parser');
+var User = require('./models/User');
 // 加载cookies模块
 var Cookies = require('cookies');
 // 创建 APP 应用 <==> NODEJS 中 http.createServer
@@ -44,10 +45,19 @@ app.use(function (req, res, next) {
   if (req.cookies.get('userInfo')) {
     try {
       req.userInfo = JSON.parse(req.cookies.get('userInfo'));
-    } catch(e) { }
+
+      // 获取当前登录用户的类型，是否是管理员
+      User.findById(req.userInfo._id).then(function (userInfo) {
+        req.userInfo.isAdmin = Boolean(userInfo.isAdmin);
+        next();
+      });
+    } catch(e) { 
+      next();
+    }
+  } else {
+    next();
   }
   
-  next();
 });
 
 /**

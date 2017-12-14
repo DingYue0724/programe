@@ -17,29 +17,10 @@
         </div>
     </div>
     <div class="navtitlebar">
-        <ul>
-            <li>
-                <a href="#">首页</a>
-            </li>
-            <li>
-                <a href="#">HTML5</a>
-            </li>
-            <li>
-                <a href="#">CSS</a>
-            </li>
-            <li>
-                <a href="#">JAVASCRIPT</a>
-            </li>
-            <li>
-                <a href="#">PHP</a>
-            </li>
-            <li>
-                <a href="#">JAVA</a>
-            </li>
-            <li>
-                <a href="#">Express</a>
-            </li>
-        </ul>
+        <a href="/">首页</a>
+        {% for category in categories %}
+        <a href="/">{{category.name}}</a>
+        {% endfor %}
     </div>
     <div class="mainbody">
         <div class="container">
@@ -137,7 +118,12 @@
                                 <h4>用户信息</h4>
                                 <div class="main-txt">
                                     <p class="user-name">{{userInfo.username}}</p>
+                                    {% if userInfo.isAdmin %}
+                                    <p class="user-msg">您好，管理员～</p>
+                                    <p><a href="/admin">点击此处进入后台管理页面</a></p>
+                                    {% else %}
                                     <p class="user-msg">您好，欢迎光临我的博客～</p>
+                                    {% endif %}
                                     <p>
                                         <a class="logout" style="text-align: right;" href="#">退出</a>
                                     </p>
