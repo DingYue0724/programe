@@ -1,0 +1,32 @@
+{% extends 'layout.html' %}
+
+{% block main %}
+
+<ol class="breadcrumb">
+    <li><a href="/admin">博文管理</a></li>
+    <li><span>{{content.title}}</span></li>
+</ol>
+<div class="container">
+    <h2>{{content.title}}</h2>
+    <div style="width: 100%; height: 30px; line-height: 30px;">
+        标签：
+        <a href="javascript:;">{{content.category.name}}</a>&nbsp;&nbsp;&nbsp;
+        作者：
+        <a href="javascript:;">{{content.user.username}}</a>&nbsp;&nbsp;&nbsp;
+        创建时间：
+        <a href="javascript:;">{{content.addTime|date('Y-m-d H:i:s')}}</a>&nbsp;&nbsp;&nbsp;
+        阅读量：
+        <a href="javascript:;">{{content.views}}</a>
+    </div>
+    <br>
+    <p>
+        <em>简介：{{content.description}}</em>
+    </p>
+    <br>
+    <div>
+        {{content.content}}
+    </div>
+</div>
+
+
+{% endblock %}

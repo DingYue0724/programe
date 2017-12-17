@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/User');
 
+var Content = require('../models/Content');
+
 // 统一返回格式
 var responseData;
 
@@ -73,12 +75,12 @@ router.post('/user/register', function (req, res, next) {
         responseData.code = 0;
         responseData.message = '注册成功!(2秒后跳转…)';
         res.json(responseData);
-        
+
         return user.save();
     }).then(function (newUserInfo) {
         console.log(newUserInfo);
     });
-    
+
 });
 
 router.post('/user/login', function (req, res) {
@@ -98,7 +100,6 @@ router.post('/user/login', function (req, res) {
     }, function (err, userInfo) {
         if (err) throw err;
         if (!userInfo) {
-            responseData.code = 2;
             responseData.message = '用户名或密码错误';
             return;
         }
@@ -121,6 +122,45 @@ router.post('/user/login', function (req, res) {
 router.get('/user/logout', function (req, res) {
     req.cookies.set('userInfo', null);
     res.json(responseData);
+});
+
+/**
+ * 评论的提交
+ */
+router.post('/comment/post', function (req, res) {
+    // 内容的id
+    var contentId = req.body.contentid || '';
+    
+    var postData = {
+        username: req.userInfo.username,
+        postTime: new Date(),
+        content: req.body.content
+    };
+
+    // 查询这篇内容的信息
+    Content.findOne({
+        _id: contentId
+    }).then(function (content) {
+        content.comments.push(postData);
+        return content.save();
+    }).then(function (newContent) {
+        responseData.message = '评论成功！';
+        responseData.data = newContent;
+        res.json(responseData);
+    });
+});
+
+/**
+ * 获取指定文章的评论
+ */
+router.get('/comment', function (req, res) {
+    var contentId = req.query.contentid || '';
+    Content.findOne({
+        _id: contentId
+    }).then(function (content) {
+        responseData.data = content.comments;
+        res.json(responseData);
+    });
 });
 
 module.exports = router;

@@ -1,212 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="/public/css/main.css">
-    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
-</head>
-
-<body>
-    <div class="navtitle">
-        <div>
-            <img src="/public/images/00002637.png" alt="">
-        </div>
+{% extends 'layout.html' %} 
+{% block content %}
+<!-- 文章 -->
+{% for content in contents %}
+<div class="read-article">
+    <h4>{{content.title}}</h4>
+    <div class="secTitle">
+        <span class="secCont">
+            <span>作者：</span>
+            <a href="javascript: void(0);">{{content.user.username}}</a>
+        </span>
+        <span class="secCont">
+            <span>时间：</span>
+            <a href="javascript: void(0);">{{content.addTime|date('Y年m月d日 H:i:s', -8*60)}}</a>
+        </span>
+        <span class="secCont">
+            <span>阅读：</span>
+            <a href="javascript: void(0);">{{content.views}}</a>
+        </span>
+        <span class="secCont">
+            <span>评论：</span>
+            <a href="javascript: void(0);">{{content.comments.length}}</a>
+        </span>
     </div>
-    <div class="navtitlebar">
-        <a href="/">首页</a>
-        {% for category in categories %}
-        <a href="/">{{category.name}}</a>
-        {% endfor %}
+    <div class="main-txt clear">
+        <p>
+            <a href="/view?category={{category}}&contentid={{content.id}}">{{content.category.name}} - {{content.title}}</a>
+        </p>
+        <p class="descript"><a href="/view?category={{category}}&contentid={{content.id}}">{{content.description}}</a></p>
+        <a href="/view?category={{category}}&contentid={{content.id}}" class="btn btn-primary">阅读全文</a>
     </div>
-    <div class="mainbody">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-10 col-sm-offset-1">
-                    <div class="row">
-                        <div class="col-sm-8">
-                            <!-- 文章 -->
-                            <div class="read-article">
-                                <h4>symfony2</h4>
-                                <ol>
-                                    <li>
-                                        <span>作者：</span>
-                                        <a href="javascript: void(0);">admin</a>
-                                    </li>
-                                    <li>
-                                        <span>时间：</span>
-                                        <a href="javascript: void(0);">2017年12月3日</a>
-                                    </li>
-                                    <li>
-                                        <span>阅读：</span>
-                                        <a href="javascript: void(0);">231</a>
-                                    </li>
-                                    <li>
-                                        <span>评论：</span>
-                                        <a href="javascript: void(0);">10</a>
-                                    </li>
-                                </ol>
-                                <div class="main-txt clear">
-                                    <p>PHP 框架 - symfony2</p>
-                                    <button class="btn btn-primary">阅读全文</button>
-                                </div>
-                            </div>
-                            <div class="read-article">
-                                <h4>标签</h4>
-                                <ol>
-                                    <li>
-                                        <span>作者：</span>
-                                        <a href="javascript: void(0);">admin</a>
-                                    </li>
-                                    <li>
-                                        <span>时间：</span>
-                                        <a href="javascript: void(0);">2017年12月3日</a>
-                                    </li>
-                                    <li>
-                                        <span>阅读：</span>
-                                        <a href="javascript: void(0);">231</a>
-                                    </li>
-                                    <li>
-                                        <span>评论：</span>
-                                        <a href="javascript: void(0);">10</a>
-                                    </li>
-                                </ol>
-                                <div class="main-txt clear">
-                                    <p>PHP 框架 - symfony2</p>
-                                    <button class="btn btn-primary">阅读全文</button>
-                                </div>
-                            </div>
-                            <div class="read-article">
-                                <h4>DOM</h4>
-                                <ol>
-                                    <li>
-                                        <span>作者：</span>
-                                        <a href="javascript: void(0);">admin</a>
-                                    </li>
-                                    <li>
-                                        <span>时间：</span>
-                                        <a href="javascript: void(0);">2017年12月3日</a>
-                                    </li>
-                                    <li>
-                                        <span>阅读：</span>
-                                        <a href="javascript: void(0);">231</a>
-                                    </li>
-                                    <li>
-                                        <span>评论：</span>
-                                        <a href="javascript: void(0);">10</a>
-                                    </li>
-                                </ol>
-                                <div class="main-txt clear">
-                                    <p>PHP 框架 - symfony2</p>
-                                    <button class="btn btn-primary">阅读全文</button>
-                                </div>
-                            </div>
-                            <div class="read-article pageBottom">
-                                <p>
-                                    <span><a href="#">没有上一页了</a></span>
-                                    <span>1/2</span>
-                                    <span><a href="#">下一页</a></span>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            {% if userInfo._id %}
-                            <div class="r-side Msg">
-                                <h4>用户信息</h4>
-                                <div class="main-txt">
-                                    <p class="user-name">{{userInfo.username}}</p>
-                                    {% if userInfo.isAdmin %}
-                                    <p class="user-msg">您好，管理员～</p>
-                                    <p><a href="/admin">点击此处进入后台管理页面</a></p>
-                                    {% else %}
-                                    <p class="user-msg">您好，欢迎光临我的博客～</p>
-                                    {% endif %}
-                                    <p>
-                                        <a class="logout" style="text-align: right;" href="#">退出</a>
-                                    </p>
-                                </div>
-                            </div>
-                            {% else %}
-                            <div class="Login r-side">
-                                <h4>登录</h4>
-                                <form class="form-horizontal" action="">
-                                    <div class="form-group">
-                                        <div class="col-sm-4">
-                                            <label for="username" class="control-label">用户名</label>
-                                        </div>
-                                        <div class="col-sm-8">
-                                            <input type="text" id="username" name="username" class="form-control" placeholder="请输入用户名">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-4">
-                                            <label for="password" class="control-label">密码</label>
-                                        </div>
-                                        <div class="col-sm-8">
-                                            <input type="password" id="password" name="password" class="form-control" placeholder="请输入密码">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <input class="btn btn-primary loginBtn" type="submit" value="登录">
-                                    </div>
-                                    <p>
-                                        <span>还没注册？</span>
-                                        <a class="goRegist" href="javascript:;">快速注册</a>
-                                    </p>
-                                    <p class="login-warning"></p>
-                                </form>
-                            </div>
-                            {% endif %}
-                            <div style="display: none" class="Register r-side">
-                                <h4>注册</h4>
-                                <form class="form-horizontal" action="">
-                                    <div class="form-group">
-                                        <div class="col-sm-4">
-                                            <label for="user" class="control-label">用户名</label>
-                                        </div>
-                                        <div class="col-sm-8">
-                                            <input type="text" id="user" name="user" class="form-control" placeholder="请输入用户名">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-4">
-                                            <label for="pwd" class="control-label">密码</label>
-                                        </div>
-                                        <div class="col-sm-8">
-                                            <input type="password" name="pwd" id="pwd" class="form-control" placeholder="请输入密码">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-4">
-                                            <label for="repwd" class="control-label">确认密码</label>
-                                        </div>
-                                        <div class="col-sm-8">
-                                            <input type="password" name="repwd" id="repwd" class="form-control" placeholder="请输入密码">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <input class="btn btn-primary registBtn" type="submit" value="注册">
-                                    </div>
-                                    <p>
-                                        <span>已有账号？</span>
-                                        <a class="goLogin" href="javascript:;">马上登录</a>
-                                    </p>
-                                    <p class="register-warning"></p>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="/public/js/jquery-3.2.1.min.js"></script>
-    <script src="/public/js/index.js"></script>
-    <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-</body>
-
-</html>
+</div>
+{% endfor %}
+<div class="read-article pageBottom">
+    <p> 
+        {% if pages > 0 %} {% if page <=1 %} <span>没有上一页了</span>
+            {% else %}
+            <span>
+                <a href="/?category={{category}}&page={{page-1}}">上一页</a>
+            </span>
+            {% endif %}
+            <span>{{page}} / {{pages}}</span>
+            {% if page >= pages %}
+            <span>没有下一页了</span>
+            {% else %}
+            <span>
+                <a href="/?category={{category}}&page={{page+1}}">下一页</a>
+            </span>
+            {% endif %} {% else %}
+            <p>当前分类项没有内容！</p>
+            {% endif %}
+    </p>
+</div>
+{% endblock %}

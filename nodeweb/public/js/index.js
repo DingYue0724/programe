@@ -51,7 +51,7 @@ $(function () {
                 }
             }
         });
-        
+
         return false;
     });
 
@@ -74,7 +74,7 @@ $(function () {
                 }
             }
         });
-        
+
         return false;
     });
 
@@ -87,5 +87,5 @@ $(function () {
             }
         });
     });
-    
+
 });

@@ -2,14 +2,15 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/User');
 var Category = require('../models/Category');
+var Content = require('../models/Content');
 
 router.use(function (req, res, next) {
-   if (!req.userInfo.isAdmin) {
-    //    如果当前页面是非管理员用户
-    res.send('对不起！只有管理员用户才能进入后台管理页面');
-    return;
-   } 
-   next();
+    if (!req.userInfo.isAdmin) {
+        //    如果当前页面是非管理员用户
+        res.send('对不起！只有管理员用户才能进入后台管理页面');
+        return;
+    }
+    next();
 });
 
 /**
@@ -19,7 +20,7 @@ router.get('/', function (req, res, next) {
     // res.send('后台管理首页');
     res.render('admin/index', {
         userInfo: req.userInfo
-    });  
+    });
 });
 
 /**
@@ -38,9 +39,9 @@ router.get('/user', function (req, res) {
      * 2:3-4    skip:2
      */
     var page = Number(req.query.page || 1);
-    var limit = 2;
+    var limit = 5;
     var pages = 0;
-    
+
     User.count().then(function (count) {
         // console.log(count);
         // 范围限制
@@ -50,12 +51,12 @@ router.get('/user', function (req, res) {
         page = Math.min(page, pages);
         // 取值不能小于 1
         page = Math.max(page, 1);
-        
+
         var skip = (page - 1) * limit;
-        
+
         User.find().limit(limit).skip(skip).then(function (users) {
             console.log(users);
-            
+
             res.render('admin/user_index', {
                 api: 'user',
                 userInfo: req.userInfo,
@@ -64,7 +65,7 @@ router.get('/user', function (req, res) {
                 pages: pages,
                 limit: limit,
                 page: page
-            }); 
+            });
         });
     });
 });
@@ -75,8 +76,8 @@ router.get('/user', function (req, res) {
 router.get('/category', function (req, res) {
     var pages = 0;
     var page = Number(req.query.page || 1);
-    var limit = 2;
-    
+    var limit = 5;
+
     Category.count().then(function (count) {
         // 计算总页数
         pages = Math.ceil(count / limit);
@@ -84,15 +85,15 @@ router.get('/category', function (req, res) {
         page = Math.min(page, pages);
         // 取值不能小于 1
         page = Math.max(page, 1);
-        
+
         var skip = (page - 1) * limit;
-        
+
         /**
          * sort():
          * 1： 升序
          * -1： 降序
          */
-        Category.find().sort({_id: -1}).limit(limit).skip(skip).then(function (categories) {
+        Category.find().sort({ _id: -1 }).limit(limit).skip(skip).then(function (categories) {
             res.render('admin/category_index', {
                 api: 'category',
                 userInfo: req.userInfo,
@@ -101,7 +102,7 @@ router.get('/category', function (req, res) {
                 pages: pages,
                 limit: limit,
                 page: page
-            }); 
+            });
         });
     });
 });
@@ -153,7 +154,7 @@ router.post('/category/add', function (req, res) {
             url: '/admin/category'
         });
     });
-    
+
 });
 
 /**
@@ -188,19 +189,19 @@ router.get('/category/edit', function (req, res) {
 router.post('/category/edit', function (req, res) {
     // 获取要修改的分类信息，并且用表单的形式展现出来
     var id = req.query.id || '';
-    
+
     // 获取post提交过来的名称
     var name = req.body.name || '';
     console.log('*name* ' + name);
     console.log(typeof name);
-    
+
     // 获取要修改的分类信息
     Category.findOne({
         _id: id
     }).then(function (category) {
         console.log('*category* ' + category);
         console.log(typeof category);
-        
+
         if (!category) {
             res.render('admin/error', {
                 userInfo: req.userInfo,
@@ -222,7 +223,7 @@ router.post('/category/edit', function (req, res) {
             } else {
                 // 查询要修改的分类名称是否在数据库中存在
                 return Category.findOne({
-                    _id: {$ne: id},
+                    _id: { $ne: id },
                     name: name
                 });
             }
@@ -239,8 +240,8 @@ router.post('/category/edit', function (req, res) {
             return Category.update({
                 _id: id
             }, {
-                name: name
-            });
+                    name: name
+                });
         }
     }).then(function () {
         res.render('admin/success', {
@@ -267,7 +268,6 @@ router.get('/category/delete', function (req, res) {
             url: '/admin/category'
         });
     });
-
 });
 
 /**
@@ -278,19 +278,194 @@ router.get('/category/delete', function (req, res) {
  * 4、编辑博文
  */
 router.get('/content', function (req, res) {
+    var pages = 0;
+    var page = Number(req.query.page || 1);
+    var limit = 5;
 
+    Content.count().then(function (count) {
+        // 计算总页数
+        pages = Math.ceil(count / limit);
+        // 取值不能超过 pages
+        page = Math.min(page, pages);
+        // 取值不能小于 1
+        page = Math.max(page, 1);
+
+        var skip = (page - 1) * limit;
+
+        Content.find().sort({ addTime: -1 }).limit(limit).skip(skip).populate(['category', 'user']).then(function (contents) {
+            console.log(contents);
+            res.render('admin/content_index', {
+                api: 'content',
+                userInfo: req.userInfo,
+                contents: contents,
+                count: count,
+                pages: pages,
+                limit: limit,
+                page: page
+            });
+        });
+    });
 });
 
 router.get('/content/add', function (req, res) {
-    
+    // 读取分类信息
+    Category.find().sort({ _id: -1 }).then(function (categories) {
+        res.render('admin/content_add', {
+            userInfo: req.userInfo,
+            categories: categories
+        });
+    });
+});
+router.post('/content/add', function (req, res) {
+    if (req.body.category == '') {
+        res.render('admin/error', {
+            userInfo: req.userInfo,
+            message: '请选择内容分类'
+        });
+        return;
+    }
+    if (req.body.title == '') {
+        res.render('admin/error', {
+            userInfo: req.userInfo,
+            message: '请输入文章标题'
+        });
+        return;
+    }
+    if (req.body.description == '') {
+        res.render('admin/error', {
+            userInfo: req.userInfo,
+            message: '请输入文章简介'
+        });
+        return;
+    }
+    if (req.body.content == '') {
+        res.render('admin/error', {
+            userInfo: req.userInfo,
+            message: '请输入正文内容'
+        });
+    }
+
+    // 保存数据到数据库
+    new Content({
+        category: req.body.category,
+        title: req.body.title,
+        description: req.body.description,
+        content: req.body.content,
+        user: req.userInfo._id.toString(),
+    }).save().then(function (rs) {
+        res.render('admin/success', {
+            userInfo: req.userInfo,
+            message: '文章内容已保存，正在提交…',
+            url: '/admin/content'
+        });
+    });
 });
 
 router.get('/content/edit', function (req, res) {
+    var id = req.query.id || '';
+    var categories = [];
+
+    // 读取分类信息
+    Category.find().sort({ _id: -1 }).then(function (rs) {
+        categories = rs;
+        return Content.findOne({
+            _id: id
+        }).populate('category');
+    }).then(function (content) {
+        if (!content) {
+            res.render('admin/error', {
+                userInfo: req.userInfo,
+                message: '指定内容不存在'
+            });
+            return Promise.reject();
+        } else {
+            res.render('admin/content_edit', {
+                userInfo: req.userInfo,
+                categories: categories,
+                content: content
+            });
+        }
+    });
+});
+router.post('/content/edit', function (req, res) {
+    var id = req.query.id || '';
     
+    if (req.body.category == '') {
+        res.render('admin/error', {
+            userInfo: req.userInfo,
+            message: '请选择内容分类'
+        });
+        return;
+    }
+    if (req.body.title == '') {
+        res.render('admin/error', {
+            userInfo: req.userInfo,
+            message: '请输入文章标题'
+        });
+        return;
+    }
+    if (req.body.description == '') {
+        res.render('admin/error', {
+            userInfo: req.userInfo,
+            message: '请输入文章简介'
+        });
+    }
+    if (req.body.content == '') {
+        res.render('admin/error', {
+            userInfo: req.userInfo,
+            message: '请输入正文内容'
+        });
+    }
+
+    // 保存数据到数据库
+    Content.findOne({
+        _id: id
+    }).then(function () {
+        return Content.update({
+            _id: id
+        }, {
+                category: req.body.category,
+                title: req.body.title,
+                description: req.body.description,
+                content: req.body.content
+            });
+        }).then(function () {
+            res.render('admin/success', {
+                userInfo: req.userInfo,
+                message: '文章内容已保存，正在提交…',
+                url: '/admin/content/detail?id=' + id
+            });
+        });;
+});
+
+router.get('/content/detail', function (req, res) {
+    var id = req.query.id || '';
+    
+    Content.findOne({
+        _id: id
+    }).populate('category').then(function (content) {
+        console.log(content);
+        res.render('admin/content_detail', {
+            api: 'content',
+            userInfo: req.userInfo,
+            content: content
+        });
+    });
 });
 
 router.get('/content/delete', function (req, res) {
-    
+    // 获取要删除的文章的 id
+    var id = req.query.id || '';
+
+    Content.remove({
+        _id: id
+    }).then(function () {
+        res.render('admin/success', {
+            userInfo: req.userInfo,
+            message: '删除成功！',
+            url: '/admin/content'
+        });
+    });
 });
 
 module.exports = router;

@@ -1,0 +1,39 @@
+{% extends 'layout.html' %} {% block main %}
+
+<ol class="breadcrumb">
+    <li>
+        <a href="/admin">博文管理</a>
+    </li>
+    <li>
+        <span>新建文章</span>
+    </li>
+</ol>
+<h3>新建文章</h3>
+
+<form role="form" method="post">
+    <div class="form-group">
+        <label for="category">分&nbsp;&nbsp;类：</label>
+        <select name="category" class="btn btn-default" id="category">
+            {% for category in categories %}
+            <option value="{{category.id}}">{{category.name}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        <label class="control-label" for="title">标&nbsp;&nbsp;题：</label>
+        <input type="text" class="form-control" id="title" name="title">
+    </div>
+    <div class="form-group">
+        <label class="control-label" for="description">简&nbsp;&nbsp;介：</label>
+        <textarea name="description" id="description" class="form-control" rows="4"></textarea>
+    </div>
+    <div class="form-group">
+        <label class="control-label" for="content">文章内容：</label>
+        <textarea name="content" id="content" class="form-control" rows="34"></textarea>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-default">确&nbsp;定</button>
+    </div>
+</form>
+
+{% endblock %}

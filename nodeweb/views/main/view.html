@@ -1,0 +1,47 @@
+{% extends 'layout.html' %} 
+{% block content %}
+<!-- 文章详情 -->
+<div class="read-article">
+    <h1>{{content.title}}</h1>
+    <p class="colDefault">
+        作者：<span class="colInfo">{{content.user.username}}</span>
+        时间：<span class="colInfo">{{content.addTime|date('Y年m月d日 H:i:s', -8*60)}}</span>
+        阅读：<span class="colInfo">{{content.views}}</span>
+        评论：<span class="colInfo">{{content.comments.length}}</span>
+    </p>
+    <div class="articleDetails">
+        {{content.content}}
+    </div>
+    <div class="articleComments">
+        <p class="commentT">
+            <h4 style="float: left">评论</h4>
+            <p class="msgCount" style="float: right; color: #666;">一共有 0 条评论</p>
+        </p>
+        <p class="commentWarning" style="color: red; line-height: 30px;"></p>
+        <form class="clear" action="">
+            <input id="Comment" class="comment" name="content" type="text"><button id="commentBtn" class="btn">评&nbsp;&nbsp;论</button>
+            <input type="hidden" id="contentId", value="{{content.id}}">
+        </form>
+        {% if userInfo._id %}
+        <div class="msgComment">
+        </div>
+        <p class="commentPager" style="text-align: center"> 
+            <span class="previous" style="float: left;">
+                <!-- 上一页 -->
+            </span>
+            <span></span>
+            <span class="next" style="float: right">
+                <!-- 下一页 -->
+            </span>
+        </p>
+        {% else %}
+        <p>
+            您还没有登录，赶快去登录吧!
+        </p>
+        {% endif %}
+    </div>
+</div>
+
+<script src="/public/js/jquery-3.2.1.min.js"></script>
+<script src="/public/js/comment.js"></script>
+{% endblock %}
