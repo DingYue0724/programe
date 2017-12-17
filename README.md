@@ -17,4 +17,4 @@
 
 # express + javascript + mongodb 项目
 ## - nodeweb
-个人博客开发，[点击此处查看](https://htmlpreview.github.io/?localhost:8081)
+个人博客开发，[点击此处查看代码详情](https://github.com/JeongYeol-dy/programe/tree/master/nodeweb)
