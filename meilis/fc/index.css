@@ -852,35 +852,38 @@ a {
 	font: 20px/44px '宋体';
 	font-weight: 700;
 	display: none;
+	cursor: pointer;
 }
 .new-cont > div:last-child > span:last-child {
 	right: 0;
 }
-.new-cont > div:last-child > ul {
-	position: relative;
+.new-cont > div:last-child > div.new-cont-list {
+	position: absolute;
 	width: 10000%;
+}
+.new-cont > div:last-child > div.new-cont-list > div.new-cont-scroll {
 	height: auto;
 	z-index: 5;
 }
-.new-cont > div:last-child > ul > li {
+.new-cont > div:last-child > div.new-cont-list > div.new-cont-scroll > div {
 	float: left;
 	width: 180px;
 	margin: 0 10px;
 }
-.new-cont > div:last-child > ul > li > a > img {
+.new-cont > div:last-child > div.new-cont-list > div.new-cont-scroll > div > a > img {
 	width: 180px;
 }
-.new-cont > div:last-child > ul > li > div > p {
+.new-cont > div:last-child > div.new-cont-list > div.new-cont-scroll > div > div > p {
 	font: 14px/20px '微软雅黑';
 	color: #666;
 	margin: 15px 0 5px 0;
 }
-.new-cont > div:last-child > ul > li > div > span {
+.new-cont > div:last-child > div.new-cont-list > div.new-cont-scroll > div > div > span {
 	font-size: 20px;
 	color: #FF4B6D;
 	font-family: Arial, Helvetica, sans-serif;
 }
-.new-cont > div:last-child > ul > li > div > del {
+.new-cont > div:last-child > div.new-cont-list > div.new-cont-scroll > div > div > del {
 	font-size: 14px;
 	color: #666;
 	font-family: Arial, Helvetica, sans-serif;
@@ -1156,6 +1159,7 @@ div.careful {
 .careful > .list-f {
 	position: relative;
 	width: 950px;
+	height: 260px;
 	overflow: hidden;
 }
 .careful > .list-f > span.all {
@@ -1174,29 +1178,39 @@ div.careful {
 	font-size: 34px;
 	border-radius: 0 6px 6px 0;
 	display: none;
+	z-index: 100;
+	cursor: pointer;
 }
 .careful > .list-f > span.r {
 	position: absolute;
 	right: 0;
 	border-radius: 6px 0 0 6px;
 }
-.careful > .list-f > ul {
-	width: 10000%;
+.careful > .list-f > div.list-f-cont {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 1000%;
+	height: 100%;
 }
-.careful > .list-f > ul > li {
+.careful > .list-f > div.list-f-cont > div.list-f-scroll {
 	float: left;
-	margin-right: 10px;
+	width: 950px;
 }
-.careful > .list-f > ul > li > .up > a {
+.careful > .list-f > div.list-f-cont > div.list-f-scroll > div {
+	float: left;
+	margin-right: 6px;
+}
+.careful > .list-f > div.list-f-cont > div.list-f-scroll > div > .up > a {
 	display: block;
 	width: 310px;
 	height: 155px;
 }
-.careful > .list-f > ul > li > .up > a > img {
+.careful > .list-f > div.list-f-cont > div.list-f-scroll > div > .up > a > img {
 	width: 100%;
 	height: 100%;
 }
-.careful > .list-f > ul > li > .dw {
+.careful > .list-f > div.list-f-cont > div.list-f-scroll > div > .dw {
 	width: 310px;
 	height: 105px;
 	background: #fff;
@@ -1204,28 +1218,29 @@ div.careful {
 	padding: 10px;
 	box-sizing: border-box;
 }
-.careful > .list-f > ul > li > .dw > ol {
+.careful > .list-f > div.list-f-cont > div.list-f-scroll > div > .dw > ol {
 	text-align: center;
 }
-.careful > .list-f > ul > li > .dw > ol > li {
+.careful > .list-f > div.list-f-cont > div.list-f-scroll > div > .dw > ol > li {
 	width: 60px;
 	float: left;
 	margin: 0px 6px 10px 6px;
 }
-.careful > .list-f > ul > li > .dw > ol > li > a > img {
+.careful > .list-f > div.list-f-cont > div.list-f-scroll > div > .dw > ol > li > a > img {
 	width: 100%;
 	height: 60px;
 }
-.careful > .list-f > ul > li > .dw > ol > li > span {
+.careful > .list-f > div.list-f-cont > div.list-f-scroll > div > .dw > ol > li > span {
 	font-size: 12px;
 	color: #333;
 }
 .careful > .list-f2 {
 	position: absolute;
-	top: 44px;
+	top: 38px;
 	right: 0;
 	float: right;
 	width: 240px;
+	height: 260px;
 	background: #fff;
 	margin-left: 10px;
 	padding: 0 15px;
