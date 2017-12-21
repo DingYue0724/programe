@@ -510,6 +510,11 @@ nav .nav-search .pulldown li:hover {
 	cursor: pointer;
 	transition: 1s;
 }
+.inner-left .section .photos li > a {
+	display: inline-block;
+	height: 115px;
+	overflow: hidden;
+}
 /* 图片的文字说明 */
 .inner-left .section .photos li p {
 	position: absolute;
@@ -548,6 +553,7 @@ nav .nav-search .pulldown li:hover {
 }
 .inner-left .section .photos ul li img {
 	width: 185px;
+	height: 100%;
 }
 /* 
  * 右侧导航栏部分

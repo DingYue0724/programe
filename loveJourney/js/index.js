@@ -158,12 +158,15 @@ $(function () {
 	});
 
 	/* 图片列表 */
-	var top='';
 	$('.photos ul li').hover(function () {
-		top = parseInt($(this).css('top'));
-		$(this).css('top', top-5);
+		$(this).children('a').children('img').css({
+			'transform': 'scale(1.2)',
+			'transition': '1s'
+		});
 	}, function () {
-		$(this).css('top', top);
+		$(this).children('a').children('img').css({
+			'transform': 'scale(1)'
+		});
 	});
 
 	var T = $('nav').offset().top;

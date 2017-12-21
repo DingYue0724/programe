@@ -5,7 +5,6 @@ $(function () {
 	var timer = null;		// 设置导航栏定时器
 	var timerList = null;	// 设置导航栏列表的定时器
 	var timer1 = null;		// 设置导航栏轮播图下标定时器
-	var timer2 = null;		// 设置导航栏轮播图图片定时器
 	var timer3 = null;		// 设置3d图旋转的定时器
 	var timer4 = null;		// 设置快抢发新日轮播图的定时器
 	var timer5 = null;		// 设置精选专题的轮播图的定时器
@@ -29,8 +28,8 @@ $(function () {
 	var allTime = Number(actime[0]) * 3600 + Number(actime[1]) * 60 + Number(actime[2]);	// 计算倒计时的总时间 (s)
 
 	/* 红人穿搭图片的3d旋转 */
-	var rotateNum = 0;		// 3d旋转图片的计数变量
-	var f = true;			// 定义3d图片旋转循环一遍完成的标志位
+	var rotateNum = 0;								// 3d旋转图片的计数变量
+	var f = true;									// 定义3d图片旋转循环一遍完成的标志位
 	var $imgsLis = $('.special > .main-list > .img-ad-list > .imgs > ul > li.l-imgs');
 	
 	/* 品牌特卖及以下的图片处理 */
@@ -118,7 +117,7 @@ $(function () {
 	}
 
 	/* 轮播图 */
-	/* 轮播图下标 */
+	// 生成轮播图下标
 	for (var i = 0; i < $('.slide-img>ul>li').length; i++) {
 		var $olis = $('<li></li>');
 		$('.slide-img>ol').append($olis);
